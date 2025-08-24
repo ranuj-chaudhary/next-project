@@ -85,22 +85,22 @@ export default function GallerySection() {
       title: "Schools & Educational",
       description:
         "Safe learning environments with comprehensive fire protection systems",
-      featured: "/warehouse-fire-system.png",
+      featured: "/school-4.jpg",
       projects: [
         {
           id: 10,
           title: "Elementary School",
-          image: "/warehouse-fire-system.png",
+          image: "/school-2.jpg",
         },
         {
           id: 11,
           title: "University Campus",
-          image: "/retail-fire-extinguisher.png",
+          image: "/school-3.jpg",
         },
         {
           id: 12,
           title: "Community College",
-          image: "/commercial-fire-installation.png",
+          image: "/school-1.jpg",
         },
       ],
     },
@@ -109,22 +109,22 @@ export default function GallerySection() {
       title: "Warehouses & Industrial",
       description:
         "Heavy-duty fire suppression systems for storage and manufacturing facilities",
-      featured: "/chemical-plant-fire-safety.png",
+      featured: "/warehouse-1.jpg",
       projects: [
         {
           id: 13,
           title: "Distribution Center",
-          image: "/chemical-plant-fire-safety.png",
+          image: "/warehouse-2.jpg",
         },
         {
           id: 14,
           title: "Manufacturing Plant",
-          image: "/power-plant-fire-system.png",
+          image: "/warehouse-3.jpg",
         },
         {
           id: 15,
           title: "Cold Storage Facility",
-          image: "/industrial-fire-system.png",
+          image: "/warehouse-4.jpg",
         },
       ],
     },
