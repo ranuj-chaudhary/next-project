@@ -25,6 +25,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build
+
       - name: Install Vercel CLI
         run: npm install -g vercel
 
@@ -32,9 +38,9 @@ jobs:
         id: vercel_deploy
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            DEPLOY_URL=$(vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --confirm)
+            DEPLOY_URL=$(vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }})
           else
-            DEPLOY_URL=$(vercel --yes --token=${{ secrets.VERCEL_TOKEN }} --confirm)
+            DEPLOY_URL=$(vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }})
           fi
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
           echo "✅ Deployment URL: $DEPLOY_URL"
