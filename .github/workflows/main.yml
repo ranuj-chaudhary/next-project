@@ -1,4 +1,4 @@
-name: Docker Hello World Test
+name: Deploy Next.js to Vercel
 
 on:
   push:
@@ -7,12 +7,31 @@ on:
     branches: [main]
 
 jobs:
-  test-docker:
+  deploy-vercel:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run hello-world Docker image
-        run: docker run hello-world
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Remove hello-world Docker image
-        run: docker rmi hello-world
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js project
+        run: npm run build
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --org ${{ secrets.VERCEL_ORG_ID }} --project ${{ secrets.VERCEL_PROJECT_ID }} --prod --confirm > deployment.txt
+          echo "DEPLOYMENT_URL=$(tail -1 deployment.txt)" >> $GITHUB_ENV
+
+      - name: Show deployment URL
+        run: echo "Your deployment URL is
