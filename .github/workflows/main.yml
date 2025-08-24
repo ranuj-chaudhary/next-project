@@ -38,5 +38,6 @@ jobs:
           fi
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
           echo "✅ Deployment URL: $DEPLOY_URL"
-          - name: Show Deployment URL
-          run: echo "🚀 App deployed at: $DEPLOY_URL"
+
+      - name: Show Deployment URL
+        run: echo "🚀 App deployed at: ${{ env.DEPLOY_URL }}"
