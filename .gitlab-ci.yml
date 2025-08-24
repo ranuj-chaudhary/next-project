@@ -1,0 +1,51 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  NODE_ENV: production
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm ci
+
+# 1. Build
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - .next
+
+# 2. Deploy to Vercel Preview
+deploy_preview:
+  stage: deploy
+  image: node:18
+  script:
+    - npm install -g vercel
+    - vercel --token $VERCEL_TOKEN --confirm --prod=false --scope $VERCEL_ORG_ID > preview_url.txt
+    - echo "Preview deployed at: $(cat preview_url.txt)"
+  artifacts:
+    paths:
+      - preview_url.txt
+  only:
+    - merge_requests
+
+# 3. Performance Test on Preview URL
+performance_test:
+  stage: test
+  image: node:18
+  dependencies:
+    - deploy_preview
+  script:
+    - export PREVIEW_URL=$(cat preview_url.txt)
+    - echo "Testing $PREVIEW_URL"
+    - npx lhci autorun --collect.url=$PREVIEW_URL
+  allow_failure: false
+  only:
+    - merge_requests
