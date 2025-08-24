@@ -33,5 +33,5 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
           else
-            vercel --prebuilt --yes --token=${{ secrets.VERCEL_TOKEN }}
+            vercel --yes --token=${{ secrets.VERCEL_TOKEN }}
           fi
