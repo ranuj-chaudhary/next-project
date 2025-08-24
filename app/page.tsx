@@ -9,6 +9,7 @@ import HeroSection from "@/components/HeroSection";
 // import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
+import TawkToChat from "@/components/TawkToChat";
 
 const ServicesSection = dynamic(() => import("@/components/ServicesSection"), {
   ssr: false, // client-side only (for lazy loading)
@@ -50,12 +51,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen">
-      <Script
-        id="tawkto-widget"
-        strategy="lazyOnload"
-        src="https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID"
-         crossOrigin="anonymous"
-      />
+      
       <Header data-animate />
       <HeroSection data-animate />
       <AboutSection data-animate />
@@ -63,6 +59,7 @@ export default function HomePage() {
       <GallerySection data-animate />
       <ContactSection data-animate />
       <Footer data-animate />
+      <TawkToChat />
     </main>
   );
 }
