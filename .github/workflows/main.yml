@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-      - 'feature/*'   # runs on any feature branch starting with "feature/"
+      - 'feature/*'
   pull_request:
     branches:
       - main
@@ -29,9 +29,15 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy to Vercel
+        id: vercel_deploy
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+            DEPLOY_URL=$(vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --confirm)
           else
-            vercel --yes --token=${{ secrets.VERCEL_TOKEN }}
+            DEPLOY_URL=$(vercel --yes --token=${{ secrets.VERCEL_TOKEN }} --confirm)
           fi
+          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+          echo "✅ Deployment URL: $DEPLOY_URL"
+
+      - name: Show Deployment URL
+        run: echo "🚀 App deployed at: $DEPLOY_URL"
