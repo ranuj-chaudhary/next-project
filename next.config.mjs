@@ -13,16 +13,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const nextConfig = {
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      console.log("⚡ Generating optimized images...");
-      execSync("node scripts/generate-images.js", { stdio: "inherit" });
-    }
-    return config;
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -30,6 +20,10 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"], // enable modern formats
   },
   reactStrictMode: true,
+   eslint: {
+    dirs: ['pages', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+     ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
